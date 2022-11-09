@@ -10,7 +10,7 @@ import Button from '../Button';
 
 const Header = () => {
   return (
-    <header>
+    <HeaderWrapper>
       <SuperHeader>
         <Row>
           <ActionGroup>
@@ -29,16 +29,44 @@ const Header = () => {
         </Row>
       </SuperHeader>
       <MainHeader>
+        <DesktopActionGroup>
+          <button>
+            <Search size={24} />
+          </button>
+          <button>
+            <Menu size={24} />
+          </button>
+        </DesktopActionGroup>
         <Logo />
+        <Subscription>
+          <Button>Subscribe</Button>
+          <a href="/">Already a subscriber</a>
+        </Subscription>
       </MainHeader>
-    </header>
+    </HeaderWrapper>
   );
 };
+
+const HeaderWrapper = styled.header`
+  /* display: flex;
+  flex-direction: column;
+  @media ${QUERIES.laptopAndUp} {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 120px 80px;
+    color: var(--color-gray-900)
+  } */
+`
 
 const SuperHeader = styled.div`
   padding: 16px 0;
   background: var(--color-gray-900);
   color: white;
+
+  @media ${QUERIES.laptopAndUp} {
+    display: none;
+  }
 `;
 
 const Row = styled(MaxWidthWrapper)`
@@ -56,15 +84,46 @@ const ActionGroup = styled.div`
   */
   svg {
     display: block;
+    @media ${QUERIES.laptopAndUp} {
+      color: var(--color-gray-900);
+    }
   }
 `;
 
+const DesktopActionGroup = styled(ActionGroup)`
+  display: none;
+  @media ${QUERIES.laptopAndUp} {
+    display: flex;
+  }
+`;
 const MainHeader = styled(MaxWidthWrapper)`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 32px;
   margin-bottom: 48px;
+  @media ${QUERIES.laptopAndUp} {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    margin-top: 16px;
+    margin-bottom: 81px;
+  }
 `;
 
+const Subscription = styled.div`
+  display: none;
+  @media ${QUERIES.laptopAndUp} {
+    display: revert;
+    justify-self: end;
+    position: relative;
+    & a {
+      position: absolute;
+      margin-top: 8px;
+      text-decoration: underline;
+      font-style: italic;
+      text-align: center;
+      width: 100%;
+    }
+  }
+`
 export default Header;
